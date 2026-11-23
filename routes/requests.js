@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 require('../models/BloodRequest');
 const BloodRequest = mongoose.model('BloodRequest');
-
 const GROUPS = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'], LEVELS = ['Normal', 'Urgent', 'Critical'];
 const who = req => { try { return jwt.verify((req.headers.authorization || '').slice(7), process.env.JWT_SECRET); } catch (e) { return null; } };
 

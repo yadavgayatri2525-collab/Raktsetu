@@ -24,6 +24,7 @@ app.use('/api/stats', require('./routes/stats'));
 app.use('/api/donors', require('./routes/donors'));
 app.use('/api/requests', require('./routes/requests'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api', require('./routes/extras'));   // NEW: accept, donor-form, feedback, groups (keep above /api/me)
 app.use('/api/me', require('./routes/me'));
 app.use('/api/contact', require('./routes/contact'));
 

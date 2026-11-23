@@ -245,6 +245,13 @@ footer .brand{font-size:1.7rem}
 section[id]{scroll-margin-top:84px}html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 dialog{margin:auto}
+.accbtn{width:100%;margin-top:8px;height:40px;border-radius:20px;border:2px solid var(--red);background:var(--red);color:#fff;font:inherit;font-weight:700;font-size:.82rem;cursor:pointer}
+.accbtn.on{background:#E4F6EA;color:#12703A;border-color:#12703A}
+.ab.wa2{background:#E4F6EA;color:#12703A}
+.f2 textarea{width:100%;min-height:90px;margin-top:4px;border:1px solid #D9D3D5;border-radius:10px;padding:10px 12px;font:inherit;font-size:.9rem;resize:vertical}
+.f2 textarea:focus{outline:0;border-color:var(--red);box-shadow:0 0 0 3px rgba(214,17,43,.14)}
+.arow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line);font-size:.88rem}
+.arow:first-of-type{border-top:0}
 </style>
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
 </head>
@@ -287,6 +294,7 @@ dialog{margin:auto}
   <nav id="links" aria-label="Main">
     <a href="/"><svg class="i"><use href="#home"/></svg>Home</a>
     <a href="/find-blood.html"><svg class="i"><use href="#users"/></svg>Find Donors</a>
+    <a href="/blood-groups.html"><svg class="i"><use href="#drop"/></svg>Blood Groups</a>
     <a href="/#emergency"><svg class="i"><use href="#bell"/></svg>Emergency Requests <span class="urg" id="urgBadge" hidden>Urgent</span></a>
     <a href="/#blood-matrix"><svg class="i"><use href="#matrix"/></svg>Blood Matrix</a>
     <a class="mob" href="/blood-request.html">Request Blood</a><a class="mob" href="/become-donor.html">Register as Donor</a><a class="mob" href="/about.html">About us</a><a class="mob" href="/contact.html">Contact us</a><a class="mob" href="/login.html?as=admin">Admin Login</a>
@@ -353,7 +361,11 @@ function ask(title, text, yes = 'Delete') { return new Promise(res => { $('dT').
   const done = v => { d.close(); res(v); }; $('dY').onclick = () => done(true); $('dN').onclick = () => done(false); d.oncancel = () => res(false); }); }
 const kc = (icon, val, label, sub, cls = '') => `<div class="kc ${cls}"><div class="ic">${ic(icon)}</div><b>${val}</b><span>${label}</span>${sub ? '<small>' + sub + '</small>' : ''}</div>`;
 const field = (id, label, val, attrs = '') => `<div class="fx" id="fx-${id}"><label>${label}<input id="${id}" value="${esc(val ?? '')}" ${attrs}></label><div class="er" id="er-${id}"></div></div>`;
-let D = null;
+let D = null, REQS = [];
+const call = (p, m, b) => api('/../' + p, m, b);   // /api/me/../x  ->  /api/x
+const poster = r => { const by = r.neededOn ? fmt(r.neededOn) : 'As soon as possible';
+  return `🩸 *${String(r.level || 'Urgent').toUpperCase()} BLOOD NEEDED*\n\n*Blood group:* ${show(r.bloodGroup)} (${r.units || 1} unit)\n*Patient:* ${r.patient}\n*Hospital:* ${r.hospital}${r.location ? ', ' + r.location : ''}\n*Needed by:* ${by}\n*Contact:* ${r.contact || ''}\n\nCan you donate or know someone who can? Please help and forward this message 🙏\n\nFind donors on RaktSetu: ${location.origin}`; };
+const accBtn = (r, acc) => { const on = acc.includes(String(r._id)); return `<button class="accbtn ${on ? 'on' : ''}" data-act="accept" data-id="${r._id}">${on ? '✓ Accepted. Family notified (tap to withdraw)' : 'I can donate: Accept request'}</button>`; };
 
 async function load() {
   try { D = await api('/'); } catch (e) { $('app').innerHTML = `<div class="ph"><b>Could not load your dashboard</b>${esc(e.message)}</div>`; return; }
@@ -391,8 +403,9 @@ async function donorView() {
         <button class="pill r full" style="justify-content:center;height:46px">Add to history</button></form></div>
   </div>
   <div class="sub2"><h2>Requests you can help with</h2><p class="s">Open requests for blood groups you can donate to. Contact the family directly.</p><div class="grid3" id="match"><div class="empty">Loading…</div></div></div>
+  <div class="sub2" id="qsec"></div>
   <div class="sub2"><h2>Donation history</h2><div id="hist"></div></div>`;
-  renderHistory(); wireDonor(); $('app').insertAdjacentHTML('beforeend', pwCard()); wirePw(); matching();
+  renderHistory(); wireDonor(); $('app').insertAdjacentHTML('beforeend', fbCard() + pwCard()); wirePw(); wireFb(); questionnaire(); matching();
 }
 function renderHistory() { const rows = D.history.map(x => `<tr><td data-l="Date">${fmt(x.date)}</td><td data-l="Hospital">${esc(x.hospital || '–')}</td><td data-l="Units">${esc(x.units || 1)}</td><td data-l="Action"><button class="ab del" data-act="rmdon" data-id="${x._id}">Remove</button></td></tr>`).join('');
   $('hist').innerHTML = rows ? `<div class="tw"><table class="tb"><thead><tr><th>Date</th><th>Hospital</th><th>Units</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="ph"><b>No donations recorded yet</b>Add your first donation using the form above.</div>'; }
@@ -412,11 +425,11 @@ function wireDonor() {
     try { D = await api('/donations', 'POST', { date: v, units: $('d-units').value, hospital: $('d-hosp').value }); toast('Donation recorded. Thank you!'); donorView(); } catch (x) { toast(x.message, true); } };
 }
 async function matching() {
-  try { const list = await api('/matching');
+  try { const list = await api('/matching'); let acc = []; try { acc = await api('/accepted'); } catch {}
     $('match').innerHTML = list.length ? list.map(r => { const c = LV[r.level] || LV.Normal, ph = String(r.contact || '').replace(/\D/g, '').slice(-10), by = r.neededOn ? new Date(r.neededOn).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '';
       return `<article class="rc" style="--c:${c}"><div class="rt"><div class="bg">${esc(show(r.bloodGroup))}</div><span class="tag">${ic('warn')}${esc(r.level || 'Normal')}</span></div><h4>${esc(r.patient)}</h4>
         <div class="h">${ic('hosp')} ${esc(r.hospital)}${r.location ? ', ' + esc(r.location) : ''}</div><div class="u">${ic('flask')} <b>${esc(r.units)} Unit(s)</b>${by ? ' needed by ' + by : ''}${r.message ? ' • <i>"' + esc(r.message) + '"</i>' : ''}</div>
-        <div class="rb"><a class="call" href="tel:+91${ph}">${ic('phone')}Call</a><a class="wa" href="https://wa.me/91${ph}?text=${encodeURIComponent('Hello, I am a RaktSetu donor and can help with the ' + show(r.bloodGroup) + ' request.')}" target="_blank" rel="noopener">${ic('wa')}WhatsApp</a></div></article>`; }).join('')
+        <div class="rb"><a class="call" href="tel:+91${ph}">${ic('phone')}Call</a><a class="wa" href="https://wa.me/91${ph}?text=${encodeURIComponent('Hello, I am a RaktSetu donor and can help with the ' + show(r.bloodGroup) + ' request.')}" target="_blank" rel="noopener">${ic('wa')}WhatsApp</a></div>${accBtn(r, acc)}</article>`; }).join('')
       : '<div class="empty"><b>No matching requests right now</b>When someone needs a blood group you can donate to, it will show up here.</div>';
   } catch (e) { $('match').innerHTML = `<div class="empty"><b>Could not load requests</b>${esc(e.message)}</div>`; } }
 
@@ -431,18 +444,19 @@ async function userView() {
     <div class="pc"><h3>Want to donate blood?</h3><div class="hint">Donors have their own profile with a blood group, location and availability.</div>
       <p style="font-size:.9rem;color:#3A2A2E">Register as a donor with a different email address and an admin will verify your profile.</p><a class="pill r" style="margin-top:14px" href="/become-donor.html">${ic('heart')}Become a donor</a></div></div>
     <div class="sub2"><h2>My requests</h2><div id="reqs"><div class="empty">Loading…</div></div></div>`;
-  $('app').insertAdjacentHTML('beforeend', pwCard()); wirePw();
+  $('app').insertAdjacentHTML('beforeend', fbCard() + pwCard()); wirePw(); wireFb();
   $('u-phone').addEventListener('input', e => e.target.value = e.target.value.replace(/\D/g, ''));
   $('uf').onsubmit = async e => { e.preventDefault(); clear(); let ok = true;
     if ($('u-name').value.trim().length < 2) ok = bad('u-name', 'Enter your name'); if (!/^[6-9]\d{9}$/.test($('u-phone').value)) ok = bad('u-phone', 'Enter a valid 10-digit number'); if (!ok) return;
     try { D = await api('/', 'PUT', { name: $('u-name').value, phone: $('u-phone').value }); const u = JSON.parse(localStorage.getItem(USER_KEY) || '{}'); u.name = D.user.name; localStorage.setItem(USER_KEY, JSON.stringify(u)); toast('Profile updated'); userView(); } catch (x) { toast(x.message, true); } };
-  try { const list = await api('/requests');
+  try { const list = await api('/requests'); REQS = list;
     $('reqs').innerHTML = list.length ? `<div class="tw"><table class="tb"><thead><tr><th>Patient</th><th>Group</th><th>Hospital</th><th>Needed by</th><th>Level</th><th>Status</th><th></th></tr></thead><tbody>${list.map(r => `<tr>
       <td data-l="Patient" class="dn">${esc(r.patient)}</td><td data-l="Group"><span class="gbd">${esc(show(r.bloodGroup))}</span><span class="cm">${esc(r.units)} unit(s)</span></td>
       <td data-l="Hospital">${esc(r.hospital)}<small style="display:block;color:var(--mute)">${esc(r.location)}</small></td><td data-l="Needed by">${fmt(r.neededOn)}</td>
       <td data-l="Level"><span class="lvl" style="background:${LV[r.level] || LV.Normal}">${esc(r.level || 'Normal')}</span></td><td data-l="Status"><span class="stp ${STC[r.status] || 'u'}">${esc(r.status)}</span></td>
-      <td data-l="Action">${r.status === 'Completed' || r.status === 'Rejected' ? '' : `<button class="ab ok" data-act="done" data-id="${r._id}">Mark fulfilled</button>`}</td></tr>`).join('')}</tbody></table></div>`
+      <td data-l="Action"><div class="acts"><button class="ab wa2" data-act="share" data-id="${r._id}">Share on WhatsApp</button>${r.status === 'Completed' || r.status === 'Rejected' ? '' : `<button class="ab ok" data-act="done" data-id="${r._id}">Mark fulfilled</button>`}</div></td></tr>`).join('')}</tbody></table></div>`
       : `<div class="ph"><b>You have not posted any requests</b>When you need blood, post a request and track it here.<div class="acts"><a class="pill r" href="/blood-request.html">${ic('mega')}Post a request</a></div></div>`;
+  loadAccepted();
   } catch (e) { $('reqs').innerHTML = `<div class="empty"><b>Could not load requests</b>${esc(e.message)}</div>`; }
 }
 
@@ -461,6 +475,39 @@ function wirePw() { $('pwf').onsubmit = async e => { e.preventDefault(); clear()
 document.addEventListener('click', async e => { const b = e.target.closest('[data-act]'); if (!b) return;
   if (b.dataset.act === 'rmdon' && await ask('Remove this donation?', 'It will be taken out of your history and your next availability will be recalculated.')) { try { D = await api('/donations/' + b.dataset.id, 'DELETE'); toast('Donation removed'); donorView(); } catch (x) { toast(x.message, true); } }
   if (b.dataset.act === 'done' && await ask('Mark as fulfilled?', 'Donors will stop seeing this request.', 'Mark fulfilled')) { try { await api('/requests/' + b.dataset.id + '/complete', 'PATCH'); toast('Request marked as fulfilled'); userView(); } catch (x) { toast(x.message, true); } } });
+
+async function loadAccepted() { try { const m = await api('/requests/accepted'), ids = Object.keys(m); if (!ids.length) return;
+  $('reqs').insertAdjacentHTML('beforeend', `<div class="pc" style="margin-top:14px"><h3>Donors ready to help</h3><div class="hint">These donors accepted your request. Call them now.</div>${ids.map(id => { const q = REQS.find(x => String(x._id) === id) || {};
+    return `<p style="font-weight:700;margin:10px 0 2px">${esc(q.patient || 'Request')} · ${esc(show(q.bloodGroup || ''))}</p>${m[id].map(d => { const ph = String(d.phone || '').replace(/\D/g, '').slice(-10);
+      return `<div class="arow"><span><b>${esc(d.name)}</b> · ${esc(show(d.bloodGroup))} · ${esc(d.city || '')}${d.area ? ', ' + esc(d.area) : ''}</span><span class="acts"><a class="ab ok" href="tel:+91${ph}">Call</a><a class="ab wa2" target="_blank" rel="noopener" href="https://wa.me/91${ph}">WhatsApp</a></span></div>`; }).join('')}`; }).join('')}</div>`); } catch {} }
+
+/* ---------------- donor questionnaire section ---------------- */
+async function questionnaire() { let f = null; try { f = await call('donor-form'); } catch {}
+  const done = f && f.form;
+  $('qsec').innerHTML = `<div class="pc"><h3>Donor questionnaire &amp; consent</h3><div class="hint">The same health questionnaire and consent form blood centres use. Fill it once so your profile is complete.</div>
+    <div class="notice ${done ? 'ok' : ''}">${done ? 'Submitted on <b>' + fmt(f.submittedAt) + '</b>. You can update it any time.' : 'You have <b>not filled</b> the questionnaire yet. It takes about 5 minutes.'}</div>
+    <a class="pill r" href="/donor-form.html">${ic('ureg')}${done ? 'View / update form' : 'Fill the form'}</a></div>`; }
+
+/* ---------------- feedback ---------------- */
+function fbCard() { return `<div class="sub2"><div class="pc" style="max-width:560px"><h3>Give feedback</h3><div class="hint">Tell us about your experience with a doctor / hospital, a donor, or a receiver.</div>
+  <form id="fbf" class="f2" novalidate>
+  <div class="full"><label>Feedback about<select id="fb-type"><option value="doctor">Doctor / hospital</option><option value="donor">A donor</option><option value="receiver">Receiver / patient family</option></select></label></div>
+  <div class="full">${field('fb-about', 'Name (optional)', '', 'maxlength="80"')}</div>
+  <div class="full"><label>Rating<select id="fb-rate"><option value="5">★★★★★ Excellent</option><option value="4">★★★★ Good</option><option value="3">★★★ Okay</option><option value="2">★★ Poor</option><option value="1">★ Very poor</option></select></label></div>
+  <div class="full fx" id="fx-fb-msg"><label>Your feedback<textarea id="fb-msg" maxlength="1000"></textarea></label><div class="er" id="er-fb-msg"></div></div>
+  <button class="pill r full" style="justify-content:center;height:46px">Send feedback</button></form></div></div>`; }
+function wireFb() { $('fbf').onsubmit = async e => { e.preventDefault(); clear();
+  if ($('fb-msg').value.trim().length < 5) return bad('fb-msg', 'Please write a few words');
+  try { await call('feedback', 'POST', { type: $('fb-type').value, about: $('fb-about').value, rating: +$('fb-rate').value, comment: $('fb-msg').value }); $('fbf').reset(); toast('Thank you for your feedback'); } catch (x) { toast(x.message, true); } }; }
+
+/* accept / withdraw, and WhatsApp poster */
+document.addEventListener('click', async e => {
+  const a = e.target.closest('[data-act="accept"]');
+  if (a) { const on = a.classList.contains('on');
+    try { await api('/requests/' + a.dataset.id + '/accept', on ? 'DELETE' : 'POST'); a.classList.toggle('on'); a.textContent = on ? 'I can donate: Accept request' : '✓ Accepted. Family notified (tap to withdraw)'; toast(on ? 'Request withdrawn' : 'Thank you! The family has been notified.'); } catch (x) { toast(x.message, true); } }
+  const s = e.target.closest('[data-act="share"]');
+  if (s) { const r = REQS.find(x => String(x._id) === s.dataset.id); if (r) window.open('https://wa.me/?text=' + encodeURIComponent(poster(r)), '_blank', 'noopener'); }
+});
 
 if (logged && user.role !== 'admin') load();
 </script>
