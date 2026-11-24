@@ -39,7 +39,7 @@ router.get('/donor-forms', auth, adminOnly, async (req, res) => {
     try {
         const list = await DonorForm.find().sort('-submittedAt').limit(500).populate('user', 'name email');
         res.json(list.map(f => ({ id: f._id, name: f.data.fullName || (f.user && f.user.name), bloodGroup: f.data.bloodGroup,
-            phone: f.data.phone, email: f.data.email || (f.user && f.user.email), flags: f.deferralFlags || [], submittedAt: f.submittedAt })));
+            phone: f.data.phone, email: f.data.email || (f.user && f.user.email), userId: f.user && f.user._id, accountEmail: f.user && f.user.email, flags: f.deferralFlags || [], submittedAt: f.submittedAt })));
     } catch (e) { fail(res, e); }
 });
 router.get('/donor-forms/:id', auth, adminOnly, async (req, res) => {
