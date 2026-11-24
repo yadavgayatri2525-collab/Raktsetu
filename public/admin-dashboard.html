@@ -285,11 +285,10 @@ dialog{margin:auto}
 <section class="fh"><div class="w"><div class="dh"><div><h1>Admin <span>Dashboard</span></h1><p id="hello">Manage donors, blood requests and users.</p></div><button class="pill ol" id="refresh" type="button">Refresh</button></div></div></section>
 <section class="sec" style="padding-top:10px"><div class="w">
 <div class="kp" id="kp"><div class="kc "><div class="ic"><svg class="i"><use href="#users"/></svg></div><b data-k="users">–</b><span>Total Users</span></div><div class="kc "><div class="ic"><svg class="i"><use href="#ureg"/></svg></div><b data-k="donors">–</b><span>Total Donors</span></div><div class="kc good"><div class="ic"><svg class="i"><use href="#heart"/></svg></div><b data-k="available">–</b><span>Available Donors</span></div><div class="kc "><div class="ic"><svg class="i"><use href="#mega"/></svg></div><b data-k="requests">–</b><span>Blood Requests</span></div><div class="kc warn"><div class="ic"><svg class="i"><use href="#warn"/></svg></div><b data-k="pending">–</b><span>Pending Requests</span></div><div class="kc good"><div class="ic"><svg class="i"><use href="#tick"/></svg></div><b data-k="completed">–</b><span>Completed Requests</span></div></div>
-<div class="tbs" role="tablist"><button role="tab" id="t-donors" aria-selected="true" data-t="donors">Donors <b id="c-donors">0</b></button><button role="tab" id="t-requests" aria-selected="false" data-t="requests">Blood Requests <b id="c-requests">0</b></button><button role="tab" id="t-users" aria-selected="false" data-t="users">Users <b id="c-users">0</b></button><button role="tab" id="t-messages" aria-selected="false" data-t="messages">Messages <b id="c-messages">0</b></button><button role="tab" id="t-forms" aria-selected="false" data-t="forms">Questionnaires <b id="c-forms">0</b></button></div>
+<div class="tbs" role="tablist"><button role="tab" id="t-donors" aria-selected="true" data-t="donors">Donors <b id="c-donors">0</b></button><button role="tab" id="t-requests" aria-selected="false" data-t="requests">Blood Requests <b id="c-requests">0</b></button><button role="tab" id="t-users" aria-selected="false" data-t="users">Users <b id="c-users">0</b></button><button role="tab" id="t-messages" aria-selected="false" data-t="messages">Messages <b id="c-messages">0</b></button></div>
 <div id="p-donors"><div class="tool"><input id="q-donors" type="search" placeholder="Search name, city, phone or blood group"><select id="f-donors"><option value="all">All donors</option><option value="pending">Awaiting verification</option><option value="verified">Verified</option></select></div><div id="o-donors"></div></div>
 <div id="p-requests" hidden><div class="tool"><input id="q-requests" type="search" placeholder="Search patient, hospital, location or blood group"><select id="f-requests"><option value="all">All statuses</option><option>Pending</option><option>Accepted</option><option>Completed</option><option>Rejected</option></select></div><div id="o-requests"></div></div>
 <div id="p-messages" hidden><div class="tool"><input id="q-messages" type="search" placeholder="Search name, email, topic or message"><select id="f-messages"><option value="all">All messages</option><option value="unread">Unread only</option></select></div><div id="o-messages"></div></div>
-<div id="p-forms" hidden><div class="tool"><input id="q-forms" type="search" placeholder="Search name, email, phone or blood group"><select id="f-forms"><option value="all">All questionnaires</option><option value="review">Needs review</option><option value="ok">No concerns</option></select></div><div id="o-forms"></div></div>
 <div id="p-users" hidden><div class="tool"><input id="q-users" type="search" placeholder="Search name, email or phone"><select id="f-users"><option value="all">All roles</option><option value="user">Users</option><option value="donor">Donors</option></select></div><div id="o-users"></div></div>
 </div></section>
 <dialog id="dlg"><h3 id="dT">Are you sure?</h3><p id="dP"></p><div class="row"><button class="pill ol" id="dN" type="button">Cancel</button><button class="pill r" id="dY" type="button">Delete</button></div></dialog>
@@ -357,7 +356,7 @@ async function load() {
     $('c-messages').textContent = (d.messages || []).length; $('c-messages').classList.toggle('alertc', d.counts.unreadMessages > 0); $('c-donors').textContent = d.counts.donors; $('c-requests').textContent = d.counts.requests; $('c-users').textContent = d.counts.users;
     $('c-donors').classList.toggle('alertc', d.counts.unverified > 0); if (d.counts.unverified > 0) $('c-donors').title = d.counts.unverified + ' awaiting verification';
     if (!load.done) { load.done = true; if (d.counts.unverified > 0) $('f-donors').value = 'pending'; }
-    try { S.forms = await api('/../donor-forms'); $('c-forms').textContent = S.forms.length; } catch (e) { S.forms = []; }
+    try { S.forms = await api('/../donor-forms'); } catch (e) { S.forms = []; }
     renderAll();
   } catch (e) { toast(e.message, true); }
 }
@@ -394,13 +393,6 @@ function renderMessages() { const q = $('q-messages').value.trim().toLowerCase()
     <td data-l="Status"><span class="vb ${m.read ? 'y' : 'n'}">${m.read ? 'Read' : 'New'}</span></td>
     <td data-l="Actions"><div class="acts"><button class="ab ok" data-act="viewmsg" data-id="${m._id}">View</button><button class="ab no" data-act="readmsg" data-id="${m._id}" data-v="${m.read ? 0 : 1}">${m.read ? 'Mark unread' : 'Mark read'}</button><button class="ab del" data-act="rmmsg" data-id="${m._id}" data-n="${esc(m.name)}">Delete</button></div></td></tr>`).join('');
   $('o-messages').innerHTML = table(['From', 'Topic', 'Message', 'Received', 'Status', 'Actions'], rows, 'No messages yet'); }
-function renderForms() { const q = $('q-forms').value.trim().toLowerCase(), f = $('f-forms').value;
-  const rows = (S.forms || []).filter(x => has(x, q, ['name', 'email', 'phone', 'bloodGroup']) && (f === 'all' || (f === 'review') === (x.flags.length > 0))).map(x => `<tr>
-    <td data-l="Donor" class="dn">${esc(x.name || '–')}<small>${esc(x.email || '')}</small></td><td data-l="Group"><span class="gbd">${esc(show(x.bloodGroup || '–'))}</span></td>
-    <td data-l="Phone">${esc(x.phone || '–')}</td><td data-l="Submitted" class="sm2">${fmt(x.submittedAt)}</td>
-    <td data-l="Status"><span class="vb ${x.flags.length ? 'n' : 'y'}">${x.flags.length ? x.flags.length + ' to review' : 'No concerns'}</span></td>
-    <td data-l="Actions"><div class="acts"><button class="ab ok" data-act="viewform" data-id="${x.id}">View form</button></div></td></tr>`).join('');
-  $('o-forms').innerHTML = table(['Donor', 'Group', 'Phone', 'Submitted', 'Status', 'Actions'], rows, 'No questionnaires submitted yet'); }
 const SCR = { well: ['Feels healthy and well today', 1], fever: ['Fever, cold or cough in last 1 week'], meds: ['Taking medicines or antibiotics'], dental: ['Dental procedure in last 1 month'], vaccine: ['Vaccination in last 4 weeks'], surgery: ['Major surgery in last 6 months'], tattoo: ['Tattoo, piercing or acupuncture in last 6 months'], transfusion: ['Blood transfusion in last 12 months'], malaria: ['Malaria or tropical fever in last 3 months'], jaundice: ['Jaundice / Hepatitis B or C'], heart: ['Heart, BP or lung disease'], chronic: ['Diabetes on insulin, epilepsy, kidney disease or cancer'], bleeding: ['Bleeding disorder or fainting spells'], alcohol: ['Alcohol in last 24 hours'], risk: ['HIV / STI risk behaviour'], pregnant: ['Pregnant or breastfeeding'], delivery: ['Delivery / abortion in last 6 months'], period: ['Menstruating and unwell'] };
 const yn = v => v === 'yes' ? 'Yes' : v === 'no' ? 'No' : (v || '–');
 async function openForm(id) { try { const d = await api('/../donor-forms/' + id), f = d.form || {}, fl = (d.flags || []).length;
@@ -413,12 +405,12 @@ async function openForm(id) { try { const d = await api('/../donor-forms/' + id)
     <div class="fh3">Consent</div>${R('Voluntary donation', A(f.c_a))}${R('Medical procedure and risks', A(f.c_b))}${R('Blood testing', A(f.c_c))}${R('Use of donated blood', A(f.c_d))}${R('Plasma use', A(f.c_f))}${R('Wants abnormal results', yn(f.c_e))}${R('Declaration', A(f.declaration))}${R('Signature', f.signature)}${R('Signed on', f.signedOn)}`;
   $('frmd').showModal(); } catch (e) { toast(e.message, true); } }
 $('frC').onclick = () => $('frmd').close();
-const renderAll = () => { renderDonors(); renderRequests(); renderUsers(); renderMessages(); renderForms(); };
+const renderAll = () => { renderDonors(); renderRequests(); renderUsers(); renderMessages(); };
 
 /* tabs, search, filters */
 document.querySelectorAll('.tbs button').forEach(b => b.onclick = () => { document.querySelectorAll('.tbs button').forEach(x => x.setAttribute('aria-selected', x === b));
-  ['donors', 'requests', 'users', 'messages', 'forms'].forEach(t => $('p-' + t).hidden = t !== b.dataset.t); });
-[['donors', renderDonors], ['requests', renderRequests], ['users', renderUsers], ['messages', renderMessages], ['forms', renderForms]].forEach(([n, fn]) => { $('q-' + n).oninput = fn; $('f-' + n).onchange = fn; });
+  ['donors', 'requests', 'users', 'messages'].forEach(t => $('p-' + t).hidden = t !== b.dataset.t); });
+[['donors', renderDonors], ['requests', renderRequests], ['users', renderUsers], ['messages', renderMessages]].forEach(([n, fn]) => { $('q-' + n).oninput = fn; $('f-' + n).onchange = fn; });
 $('mC').onclick = () => $('msgd').close();
 $('mU').onclick = () => { $('msgd').close(); $('q-users').value = $('mU').dataset.email; $('f-users').value = 'all'; renderUsers(); $('t-users').click(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
 $('pwClose').onclick = () => { $('pwd').close(); $('pwT').textContent = ''; };
