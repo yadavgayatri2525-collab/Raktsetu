@@ -4,7 +4,7 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User'), Donor = require('../models/Donor'), Request = require('../models/BloodRequest');
 const DonorForm = require('../models/DonorForm'), Acceptance = require('../models/Acceptance'), Feedback = require('../models/Feedback');
-const { COMPAT, notifyRequester } = require('../utils/mailer');
+const { COMPAT, notifyRequester, sendMail } = require('../utils/mailer');
 
 const auth = (req, res, next) => {
     try { req.auth = jwt.verify((req.headers.authorization || '').replace('Bearer ', ''), process.env.JWT_SECRET); next(); }
@@ -23,7 +23,30 @@ router.post('/donor-form', auth, async (req, res) => {
         if (!/^\d{10}$/.test(form.phone || '')) return res.status(400).json({ error: 'Enter a valid 10-digit mobile number' });
         const doc = await DonorForm.findOneAndUpdate({ user: req.auth.id },
             { data: form, deferralFlags: deferralFlags || [], submittedAt: new Date() }, { upsert: true, new: true, setDefaultsOnInsert: true });
+        // optional: email the admin (set ADMIN_NOTIFY_EMAIL in Render to turn on)
+        if (process.env.ADMIN_NOTIFY_EMAIL) {
+            const h = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+            sendMail({ to: process.env.ADMIN_NOTIFY_EMAIL, subject: 'New donor questionnaire: ' + (form.fullName || ''),
+                html: `<p><b>${h(form.fullName)}</b> (${h(form.bloodGroup)}) submitted the donor questionnaire.</p><p>Answers that may need review: <b>${(deferralFlags || []).length}</b></p><p>Open <a href="${(process.env.APP_URL || '').replace(/\/$/, '')}/admin-forms.html">admin-forms.html</a> to read it.</p>` }).catch(e => console.error('admin mail:', e.message));
+        }
         res.json({ ok: true, submittedAt: doc.submittedAt });
+    } catch (e) { fail(res, e); }
+});
+
+/* ---------- admin: read all submitted questionnaires ---------- */
+const adminOnly = (req, res, next) => req.auth.role === 'admin' ? next() : res.status(403).json({ error: 'Admins only' });
+router.get('/donor-forms', auth, adminOnly, async (req, res) => {
+    try {
+        const list = await DonorForm.find().sort('-submittedAt').limit(500).populate('user', 'name email');
+        res.json(list.map(f => ({ id: f._id, name: f.data.fullName || (f.user && f.user.name), bloodGroup: f.data.bloodGroup,
+            phone: f.data.phone, email: f.data.email || (f.user && f.user.email), flags: f.deferralFlags || [], submittedAt: f.submittedAt })));
+    } catch (e) { fail(res, e); }
+});
+router.get('/donor-forms/:id', auth, adminOnly, async (req, res) => {
+    try {
+        const f = await DonorForm.findById(req.params.id).populate('user', 'name email');
+        if (!f) return res.status(404).json({ error: 'Not found' });
+        res.json({ id: f._id, user: f.user, form: f.data, flags: f.deferralFlags || [], submittedAt: f.submittedAt });
     } catch (e) { fail(res, e); }
 });
 
